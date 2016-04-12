@@ -5,6 +5,7 @@ function space(t, s0, v0, a)
 	return s0 + t*v0 + (a*t*t)/2.0;
 }
 
+
 function speed(t, v0, a)
 {
 	a = a ? a : 0;
