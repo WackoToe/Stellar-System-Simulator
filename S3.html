@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>S3</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="menu.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="S3styles.css" media="screen" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="math.js" type="text/javascript"></script>
+    <script src="physics.js" type="text/javascript"></script>
+	<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+	<script src="jquery.min.js"></script>
+
+
+	<style>p {text-align: justify; text-indent: 12px;}</style>
+</head>
+
+<body id="corpo" onresize="resize_canvas()">
+
+	<div id='cssmenu' class="noselect">
+	<ul>
+		<li class='has-sub'><a><span>Bodies</span></a>
+		<ul>
+			<li class='has-sub'><a><span>Planets</span></a>
+			<ul>	
+				<li class='last'><a><button id="planetButton" class='transparentButton'><span>New planet</span></button></a></li>
+				<li><a><span>Sub Product</span></a></li>
+			</ul>
+			</li>
+			<li class='has-sub'><a><span>Stars</span></a>
+			<ul>
+				<li><a><button id="starButton" class='transparentButton'><span>New star</span></button></a></li>
+				<li class='last'><a><span>Sub Product</span></a></li>
+			</ul>
+			</li>
+			<li><a><span>Black Holes</span></a></li>
+		</ul>
+		</li>
+
+		<li><a><span>Grav. Field</span></a></li>
+		<li><a id="panMenuElement"><button id="panButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">pan_tool</i></button></a></li>
+		<li><a id="zoomInMenuElement"><button id="zoomInButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">zoom_in</i></button></a></li>	
+		<li><a id="zoomOutMenuElement"><button id="zoomOutButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">zoom_out</i></button></a></li>
+		<li class='has-sub'><a><i class="material-icons" style="font-size:22px;">delete</i></a>
+		<ul>
+			<li><a><button id="deleteBodyButton" class='transparentButton'><span>Delete body</span></button></a></li>
+			<li><a><button id="cleanAllButton" class='transparentButton'><span>Clean All</span></button></a></li>
+		</ul>
+		</li>
+	</ul>
+	</div>
+
+	<!-- MODALI -->
+	<!-- Modale Pianeti -->
+	<div id="planetModal" class="modal">
+		<div class="planetFormStyle">
+			<div class="modal-content">
+				<span class="close">x</span>
+				<h1>New Planet</h1>
+					<input type="text" name="planetName" placeholder="Planet Name" />
+					<input type="number" name="radius" placeholder="Radius" />
+					<input type="number" name="mass" placeholder="Mass" />
+					<input type="number" name="x" placeholder="x coordinate" />
+					<input type="number" name="y" placeholder="y coordinate" />
+					<input type="number" name="speedX" placeholder="x velocity" />
+					<input type="number" name="speedY" placeholder="y velocity" />
+					<input type="text" name="colorTheme" placeholder="Planet color theme" />
+					<input type="submit" name="planetSubmitButton" value="Create"/>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modale Stelle -->
+	<div id="starModal" class="modal">
+		<div class="starFormStyle">
+			<div class="modal-content">
+				<span class="close">x</span>
+				<h1>New Star</h1>
+					<input type="text" name="starname" placeholder="Star Name" />
+					<input type="number" name="radius" min="0" placeholder="Radius" />
+					<input type="number" name="mass" min="0" placeholder="Mass" />
+					<input type="number" name="x" placeholder="x coordinate" />
+					<input type="number" name="y" placeholder="y coordinate" />
+					<input type="number" name="speedX" placeholder="x velocity" />
+					<input type="number" name="speedY" placeholder="y velocity" />
+					<input type="text" name="colorTheme" placeholder="Star color theme" />
+					<input type="submit" name="starSubmitButton" value="Create"/>
+			</div>
+		</div>
+	</div>
+
+
+<div id="planetRender">
+    <div></div>
+</div>
+<div  id="autoscale">
+	<canvas id="simulatorCanvas"></canvas>
+</div>
+<script type="text/javascript" src="myScript.js"></script>
+
+</body>
+</html>
