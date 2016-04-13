@@ -40,8 +40,9 @@ html,body
 	width: 200px;
 	height: 200px;
 	margin: 100px auto;
-	border-radius: 100px;
+	border-radius: 200px;
     position: relative;
+    
     
     -webkit-animation-name: floating; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 5s; /* Chrome, Safari, Opera */

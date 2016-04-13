@@ -65,7 +65,14 @@
 					<input type="number" name="y" placeholder="y coordinate" />
 					<input type="number" name="speedX" placeholder="x velocity" />
 					<input type="number" name="speedY" placeholder="y velocity" />
-					<input type="text" name="colorTheme" placeholder="Planet color theme" />
+                    <select name="colorTheme">
+                        <option selected value="blue">Blue</option>
+                        <option value="brown">Brown</option>
+                        <option value="grey">Grey</option>
+                        <option value="red">Red</option>
+                        <option value="white">White</option>
+                    </select>
+					<!--<input type="text" name="colorTheme" placeholder="Planet color theme" />-->
 					<input type="submit" name="planetSubmitButton" value="Create"/>
 			</div>
 		</div>
@@ -94,9 +101,11 @@
 <div id="planetRender">
     <div></div>
 </div>
+
 <div  id="autoscale">
 	<canvas id="simulatorCanvas"></canvas>
 </div>
+
 <script type="text/javascript" src="myScript.js"></script>
 
 </body>

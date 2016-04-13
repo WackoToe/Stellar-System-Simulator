@@ -96,18 +96,18 @@ function drawPlanet(p){ // Disegna un singolo pianeta
 
 function drawGravity()
 {
-    var i = 50/CANVAS_SCALE;
-    var j = 50/CANVAS_SCALE;
-    var f = [0,0];
-    
-    for(i; i<can_w; i=i+100/CANVAS_SCALE)
-    {
-        for(j; j<can_h; i=i+100/CANVAS_SCALE)
-        {
-            f = calculateForces(i,j);
-            
-        }
-    }
+	var i = 50/CANVAS_SCALE;
+	var j = 50/CANVAS_SCALE;
+	var f = [0,0];
+	
+	for(i; i<can_w; i=i+100/CANVAS_SCALE)
+	{
+		for(j; j<can_h; i=i+100/CANVAS_SCALE)
+		{
+			f = calculateForces(i,j);
+			
+		}
+	}
 }
 
 function begin()
@@ -117,17 +117,17 @@ function begin()
 	var next = function(time)
 	{
 		if(!start) start = time; // inizializza start durante la prima chiamata di next()
-        else c.restore();
+		else c.restore();
 		var t = (time - start)/1000.0; // Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
 
 		/* Funzione che restituisce un nuovo array con i pianeti aggiornati dopo il tempo t */
 		planetsArray = updatePlanets(planetsArray, t);
 		
-        c.save();
+		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
 
-        if(gravitVisualizer == 1) drawGravity()
+		if(gravitVisualizer == 1) drawGravity()
 		planetsArray.map(drawPlanet);
 		c.translate(-trasl[0], -trasl[1]);
 		window.requestAnimationFrame(next);
@@ -165,7 +165,6 @@ var startMouseY;
 var traslX;
 var traslY;
 var md = 0;												//se e' uguale a 1 indica che il mouse e' cliccato, altrimenti e' uguale a 0
-//var canvasOrigin = math.matrix([ [0], [0], [1]);		//indica il pixel in alto a sinistra della canvas
 var canvasOrigin = [0, 0];
 
 
@@ -253,16 +252,37 @@ $("#simulatorCanvas").mousedown(function(e)
 		{
 
 			planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
-			
-            var cp = $("#planetRender").children()[0];
-			if(planetSelected != -1) {
-                var p = planetsArray[planetSelected];
-                cp.style.background = "100% / cover url(Images/shadow.png), 100% / cover url(Images/" + p.colorTheme + "/"+p.colorTheme+".gif)";
-            }
-			else cp.style.background = "";
+
+			if(planetSelected != -1) 
+			{
+				var p = planetsArray[planetSelected];
+				cp.style.background = "100% / cover url(Images/" + p.colorTheme + "/1.jpg)";
+                cp.style.boxShadow = "inset 0px 0px 50px 15px rgba(0, 0, 0, 0.9)";
+				
+				cp.style.backgroundPosition = "0 0";
+                clearInterval(tid);
+				tid = setInterval(transl, 30);		
+			}
+			else
+			{
+				cp.style.background = "";
+                cp.style.boxShadow ="";
+				
+			}
 		}
 	}
 });
+
+var tid;
+var offsetTranslation=10;
+var cp = $("#planetRender").children()[0];
+
+function transl() 
+{
+	cp.style.backgroundPosition = "-"+offsetTranslation+"px 0";
+	//cp.style.background = "100% / cover url(Images/shadow.png)";
+	offsetTranslation=(++offsetTranslation)%1024;
+}
 
 $("#simulatorCanvas").mouseup(function(e)
 {
