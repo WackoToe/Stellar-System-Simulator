@@ -357,7 +357,7 @@ planetsArray.push({
 		y: 200,
 		speedX: 0,
 		speedY: 0,
-		colorTheme: "blue"
+		colorTheme: "green"
 });
 
 /*planetsArray.push({
