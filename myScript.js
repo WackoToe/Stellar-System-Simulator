@@ -34,7 +34,7 @@ var toolSelected = -1;
 
 var planetSelected = -1;		//Tells the index of the selected planet in planetsArray
 
-var gravitVisualizer = 0;
+var gravityVisualizer = 0;
 
 // When the user clicks the button, open the modal 
 $("#planetButton").click(function() {
@@ -79,6 +79,7 @@ $("[name=planetSubmitButton]").click(function(){
 	//$("#planetModal input").val('');
 	$("#planetModal")[0].style.display = "none";
 });
+
 
 $("#cleanAllButton").click(function(){
 	for(i = planetsArray.length-1; i >= 0 ; i--) planetsArray.pop()
@@ -127,7 +128,7 @@ function begin()
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
 
-		if(gravitVisualizer == 1) drawGravity()
+		if(gravityVisualizer == 1) drawGravity()
 		planetsArray.map(drawPlanet);
 		c.translate(-trasl[0], -trasl[1]);
 		window.requestAnimationFrame(next);
@@ -167,7 +168,7 @@ var traslY;
 var md = 0;												//se e' uguale a 1 indica che il mouse e' cliccato, altrimenti e' uguale a 0
 var canvasOrigin = [0, 0];
 
-
+/* PAN HANDLER */
 $("#panButton").click(function() 
 {
 	if(toolSelected == 0)
@@ -219,6 +220,23 @@ $("#zoomOutButton").click(function()
 });
 
 
+/* DELETE PLANET HANDLER */
+$("#deletePlanetButton").click(function()
+{
+    if(toolSelected==3)
+	{
+		toolSelected = -1;
+		allButtonsStyleRestore();
+	}
+	else
+	{
+		toolSelected = 3;
+		allButtonsStyleRestore();
+		$("#deletePlanetMenuElement").css("background", "#0c7fb0");
+		console.log("deletePlanet slected");
+	}
+})
+
 
 
 
@@ -231,6 +249,7 @@ $("#simulatorCanvas").mousedown(function(e)
 
 	
 	console.log("offsetX" + e.offsetX + "offsetY" + e.offsetY);
+    
 	switch(toolSelected)
 	{
 		case 0:
@@ -248,6 +267,12 @@ $("#simulatorCanvas").mousedown(function(e)
 			CANVAS_SCALE /= SCALE_FACTOR;
 			break;
 		}
+        case 3:
+        {
+            planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
+            console.log(planetSelected)
+            if(planetSelected != -1) planetsArray.splice(planetSelected, 1);
+        }
 		default:
 		{
 
@@ -333,6 +358,7 @@ function allButtonsStyleRestore()
 	$("#panMenuElement").css("background", "");
 	$("#zoomInMenuElement").css("background", "");
 	$("#zoomOutMenuElement").css("background", "");
+    $("#deletePlanetMenuElement").css("background", "");
 }
 
 

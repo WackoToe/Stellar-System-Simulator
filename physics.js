@@ -45,7 +45,7 @@ function updatePlanets(planets, t)
  		};
  		return new_p; // ritorno il nuovo pianeta
  	});
- 	return updated; // i nuovi pianeti aggioranti vengono restituiti
+ 	return updated; // i nuovi pianeti aggiornati vengono restituiti
  }
  
  
