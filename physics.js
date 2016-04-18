@@ -61,3 +61,46 @@ function updatePlanets(planets, t)
 	});
 	return f;
  }
+ 
+ function collisionResolution(planets)
+ {
+	 var i;
+	 var updated = planets.map(function(old_p)
+	 {
+		 for(i=0; i<planets.length; ++i)
+		 {
+			 if(old_p == planets[i]) return old_p;
+			 var distance = Math.sqrt( Math.pow(planets[i].x-old_p.x, 2 ) + Math.pow(planets[i].y-old_p.y, 2 ) ) - planets[i].radius - old_p.radius;
+			 
+			 if(distance<=0)
+			 {
+				 var newRadius = Math.cbrt(Math.pow(old_p.radius, 3) + Math.pow(planets[i].radius, 3));
+				 var heavierPlanet;
+				 
+				 if(old_p.mass > planets[i].mass) heavierPlanet = old_p;
+				 else heavierPlanet = planets[i];
+				 
+				 console.log(heavierPlanet.planetName);
+				 
+				 var new_p = 
+				 {
+					planetName: old_p.planetName + " + "+planets[i].name,
+					radius: newRadius,
+					mass: old_p.mass + planets[i].mass,
+					x: heavierPlanet.x,
+					y: heavierPlanet.y,
+					speedX: old_p.speedX*old_p.mass + planets[i].speedX*planets[i].mass , // e le velocità
+					speedY: old_p.speedY*old_p.mass + planets[i].speedY*planets[i].mass,
+					colorTheme: heavierPlanet.colorTheme
+				 }
+				 planets.splice(i, 1);
+				 return new_p;
+			 }
+			 else
+			 {
+				return old_p;    
+			 }
+		 }
+	 })
+	 return updated;
+ }

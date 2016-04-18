@@ -122,8 +122,10 @@ function begin()
 		var t = (time - start)/1000.0; // Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
 
+        planetsArray = collisionResolution(planetsArray);
 		/* Funzione che restituisce un nuovo array con i pianeti aggiornati dopo il tempo t */
 		planetsArray = updatePlanets(planetsArray, t);
+        
 		
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
@@ -232,8 +234,9 @@ $("#deletePlanetButton").click(function()
 	{
 		toolSelected = 3;
 		allButtonsStyleRestore();
-		$("#deletePlanetMenuElement").css("background", "#0c7fb0");
+		$("#deletePlanetMenuElement").css("background", "#FF0000");
 		console.log("deletePlanet slected");
+        console.log(Math.cbrt(1000))
 	}
 })
 
@@ -365,6 +368,17 @@ function allButtonsStyleRestore()
 
 /*  Test vari */
 planetsArray.push({
+		planetName: "earthBlue",
+		radius: 45,
+		mass: 500,
+		x: 200,
+		y: 200,
+		speedX: 0,
+		speedY: 0,
+		colorTheme: "blue"
+});
+
+planetsArray.push({
 	planetName: "mars",
 	radius: 30,
 	mass: 10,
@@ -375,16 +389,7 @@ planetsArray.push({
 	colorTheme: "red"
 });
 
-planetsArray.push({
-		planetName: "earthBlue",
-		radius: 45,
-		mass: 500,
-		x: 200,
-		y: 200,
-		speedX: 0,
-		speedY: 0,
-		colorTheme: "green"
-});
+
 
 /*planetsArray.push({
 		planetName: "Origin",
