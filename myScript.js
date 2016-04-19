@@ -369,23 +369,23 @@ function allButtonsStyleRestore()
 /*  Test vari */
 planetsArray.push({
 		planetName: "earthBlue",
-		radius: 45,
+		radius: 50,
 		mass: 500,
 		x: 200,
 		y: 200,
 		speedX: 0,
 		speedY: 0,
-		colorTheme: "blue"
+		colorTheme: "grey"
 });
 
 planetsArray.push({
 	planetName: "mars",
-	radius: 30,
-	mass: 10,
-	x: 0,
-	y: 450,
-	speedX: 80,
-	speedY: 0,
+	radius: 10,
+	mass: 100,
+	x: 50,
+	y: 550,
+	speedX: 10,
+	speedY: 10,
 	colorTheme: "red"
 });
 
