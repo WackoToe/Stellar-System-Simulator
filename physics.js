@@ -67,54 +67,42 @@ function updatePlanets(planets, t)
 	 var i;
 	 var updated = planets.map(function(old_p, index)
 	 {
-		for(i=0; i<planets.length; ++i)
+		for(i=index+1; i<planets.length; ++i)
 		{
-			if(old_p != planets[i]) 
-			{ 
-				var distance = Math.sqrt( Math.pow(planets[i].x-old_p.x, 2 ) + Math.pow(planets[i].y-old_p.y, 2 ) ) - planets[i].radius - old_p.radius;
-			
-				if(distance<=0)
+			console.log(i);
+			console.log("Pianeti sotto analisi " +old_p.planetName+","+planets[i].planetName);
+			var distance = Math.sqrt( Math.pow(planets[i].x-old_p.x, 2 ) + Math.pow(planets[i].y-old_p.y, 2 ) ) - planets[i].radius - old_p.radius;
+			console.log(distance);
+		
+			if(distance<=0)
+			{
+				var newRadius = Math.cbrt(Math.pow(old_p.radius, 3) + Math.pow(planets[i].radius, 3));
+				var heavierPlanet;
+				
+				if(old_p.mass > planets[i].mass) heavierPlanet = old_p;
+				else heavierPlanet = planets[i];
+					
+				var new_p = 
 				{
-					//console.log(old_p.planetName);
-					//console.log(index);
-					//console.log(planets[i].planetName);
-					var newRadius = Math.cbrt(Math.pow(old_p.radius, 3) + Math.pow(planets[i].radius, 3));
-					var heavierPlanet;
-					var toRemove;
-					
-					if(old_p.mass > planets[i].mass) 
-					{
-						heavierPlanet = old_p;
-						toRemove = i;
-					}
-					else
-					{
-						heavierPlanet = planets[i];
-						toRemove = index;
-					}
-					
-					//console.log(heavierPlanet.planetName);
-						
-					var new_p = 
-					{
-						planetName: old_p.planetName + " + "+planets[i].name,
-						radius: newRadius,
-						mass: old_p.mass + planets[i].mass,
-						x: heavierPlanet.x,
-						y: heavierPlanet.y,
-						speedX: (old_p.speedX*old_p.mass + planets[i].speedX*planets[i].mass)/(old_p.mass+planets[i].mass) , // e le velocità
-						speedY: (old_p.speedY*old_p.mass + planets[i].speedY*planets[i].mass)/(old_p.mass+planets[i].mass),
-						colorTheme: heavierPlanet.colorTheme
-					}
-					//console.log((old_p.speedX*old_p.mass + planets[i].speedX*planets[i].mass)/(old_p.mass+planets[i].mass))
-					//console.log(new_p.planetName);
-					planets.splice(toRemove, 1);
-					console.log(planets.length);
-					return new_p;
+					planetName: old_p.planetName + " + " + planets[i].planetName,
+					radius: newRadius,
+					mass: old_p.mass + planets[i].mass,
+					x: heavierPlanet.x,
+					y: heavierPlanet.y,
+					speedX: (old_p.speedX*old_p.mass + planets[i].speedX*planets[i].mass)/(old_p.mass+planets[i].mass) , // e le velocità
+					speedY: (old_p.speedY*old_p.mass + planets[i].speedY*planets[i].mass)/(old_p.mass+planets[i].mass),
+					colorTheme: heavierPlanet.colorTheme
 				}
-				else return old_p;    
-			}
+				console.log("Ho fuso il pianeta " +old_p.planetName+ " con il pianeta " +planets[i].planetName+ " e li ho salvati in posizione " + i);
+				planets[i] = new_p;
+				console.log(planets[i].planetName);
+				
+				return null;
+			}    
 		}
+		return old_p;
 	 })
+	 
+	 //for(i=0; i<planets.length; ++i) if(planets[i] == null) planets.splice(i, 1);
 	 return updated;
  }
