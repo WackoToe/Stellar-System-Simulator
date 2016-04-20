@@ -65,7 +65,7 @@ function updatePlanets(planets, t)
  function collisionResolution(planets)
  {
 	 var i;
-	 var updated = planets.map(function(old_p, index)
+	 var updatedDirty = planets.map(function(old_p, index)
 	 {
 		for(i=index+1; i<planets.length; ++i)
 		{
@@ -95,7 +95,6 @@ function updatePlanets(planets, t)
 				}
 				console.log("Ho fuso il pianeta " +old_p.planetName+ " con il pianeta " +planets[i].planetName+ " e li ho salvati in posizione " + i);
 				planets[i] = new_p;
-				console.log(planets[i].planetName);
 				
 				return null;
 			}    
@@ -103,6 +102,8 @@ function updatePlanets(planets, t)
 		return old_p;
 	 })
 	 
-	 //for(i=0; i<planets.length; ++i) if(planets[i] == null) planets.splice(i, 1);
+	 console.log(updatedDirty.length);
+	 var updated;
+	 for(i=0; i<updatedDirty.length; ++i) if(typeof updatedDirty[i] != 'undefined') updated.push(updatedDirty[i]);
 	 return updated;
  }
