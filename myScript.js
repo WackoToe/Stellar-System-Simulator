@@ -375,7 +375,7 @@ planetsArray.push({
 		y: 200,
 		speedX: 0,
 		speedY: 0,
-		colorTheme: "grey"
+		colorTheme: "blue"
 });
 
 planetsArray.push({

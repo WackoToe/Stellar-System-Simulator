@@ -7,3 +7,6 @@ S3 is based on html, css and javascript.
 S3 allows you to:
 * insert planet
 * delete planet
+
+### Screenshot
+![screenshot1] (Images/presentationScreenshot.png)

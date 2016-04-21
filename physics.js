@@ -65,20 +65,22 @@ function updatePlanets(planets, t)
  function collisionResolution(planets)
  {
 	 var i;
+     var atLeastOneCollision = 0;
 	 var updatedDirty = planets.map(function(old_p, index)
 	 {
 		for(i=index+1; i<planets.length; ++i)
 		{
-			console.log(i);
-			console.log("Pianeti sotto analisi " +old_p.planetName+","+planets[i].planetName);
+
 			var distance = Math.sqrt( Math.pow(planets[i].x-old_p.x, 2 ) + Math.pow(planets[i].y-old_p.y, 2 ) ) - planets[i].radius - old_p.radius;
-			console.log(distance);
 		
 			if(distance<=0)
 			{
 				var newRadius = Math.cbrt(Math.pow(old_p.radius, 3) + Math.pow(planets[i].radius, 3));
-				var heavierPlanet;
+                var newSpeedX = (old_p.speedX*old_p.mass + planets[i].speedX*planets[i].mass)/(old_p.mass+planets[i].mass);
+				var newSpeedY = (old_p.speedY*old_p.mass + planets[i].speedY*planets[i].mass)/(old_p.mass+planets[i].mass);
+                var heavierPlanet;
 				
+                console.log(newSpeedX);
 				if(old_p.mass > planets[i].mass) heavierPlanet = old_p;
 				else heavierPlanet = planets[i];
 					
@@ -89,21 +91,25 @@ function updatePlanets(planets, t)
 					mass: old_p.mass + planets[i].mass,
 					x: heavierPlanet.x,
 					y: heavierPlanet.y,
-					speedX: (old_p.speedX*old_p.mass + planets[i].speedX*planets[i].mass)/(old_p.mass+planets[i].mass) , // e le velocità
-					speedY: (old_p.speedY*old_p.mass + planets[i].speedY*planets[i].mass)/(old_p.mass+planets[i].mass),
+					speedX:  newSpeedX,
+					speedY: newSpeedY,
 					colorTheme: heavierPlanet.colorTheme
 				}
-				console.log("Ho fuso il pianeta " +old_p.planetName+ " con il pianeta " +planets[i].planetName+ " e li ho salvati in posizione " + i);
 				planets[i] = new_p;
 				
+                atLeastOneCollision = 1;
 				return null;
 			}    
 		}
 		return old_p;
 	 })
 	 
-	 console.log(updatedDirty.length);
-	 var updated;
-	 for(i=0; i<updatedDirty.length; ++i) if(typeof updatedDirty[i] != 'undefined') updated.push(updatedDirty[i]);
-	 return updated;
+     if(atLeastOneCollision)
+     {
+        var updated = [];
+        for(i=0; i<updatedDirty.length; ++i) if(updatedDirty[i]) updated.push(updatedDirty[i]);
+        return updated;         
+     }
+     else return updatedDirty;
+
  }
