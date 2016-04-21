@@ -29,12 +29,23 @@ var trasl = [0, 0];
 *	0: stiamo utilizzando il pan
 *	1: stiamo utilizzando zoom-in
 *	2: stiamo utilizzando zoom-out
+*   3: stiamo aggiungendo rapidamente un pianeta
+*   4: stiamo eliminando un pianeta
 */
 var toolSelected = -1;
 
 var planetSelected = -1;		//Tells the index of the selected planet in planetsArray
 
 var gravityVisualizer = 0;
+
+var colorArray = ["Blue", "brown", "green", "grey", "pink", "purple", "red", "silver", "white", "Yellow"]   //Contains all the available colors
+var colorArrayIndex = 0;    //Used to decide what is the color of the planet added fast
+
+var fastPlanetNumber = 0;           //Tells how many times we added a planet in the fast way
+var defaultFastPlanetRadius = 50;   //Default radius when we do a fast planet add
+var defaultFastPlanetMass = 50;     //Default mass when we do a fast planet add
+
+
 
 // When the user clicks the button, open the modal 
 $("#planetButton").click(function() {
@@ -122,10 +133,10 @@ function begin()
 		var t = (time - start)/1000.0; // Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
 
-        planetsArray = collisionResolution(planetsArray);
+		planetsArray = collisionResolution(planetsArray);
 		/* Funzione che restituisce un nuovo array con i pianeti aggiornati dopo il tempo t */
 		planetsArray = updatePlanets(planetsArray, t);
-        
+		
 		
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
@@ -221,11 +232,10 @@ $("#zoomOutButton").click(function()
 	}
 });
 
-
-/* DELETE PLANET HANDLER */
-$("#deletePlanetButton").click(function()
+/* FAST ADD PLANET HANDLER */
+$("#fastAddButton").click(function()
 {
-    if(toolSelected==3)
+	if(toolSelected==3)
 	{
 		toolSelected = -1;
 		allButtonsStyleRestore();
@@ -234,9 +244,27 @@ $("#deletePlanetButton").click(function()
 	{
 		toolSelected = 3;
 		allButtonsStyleRestore();
+		$("#fastAddMenuElement").css("background", "#0c7fb0");
+		console.log("FastAdd selected");
+	}
+	
+})
+
+
+/* DELETE PLANET HANDLER */
+$("#deletePlanetButton").click(function()
+{
+	if(toolSelected==4)
+	{
+		toolSelected = -1;
+		allButtonsStyleRestore();
+	}
+	else
+	{
+		toolSelected = 4;
+		allButtonsStyleRestore();
 		$("#deletePlanetMenuElement").css("background", "#FF0000");
 		console.log("deletePlanet slected");
-        console.log(Math.cbrt(1000))
 	}
 })
 
@@ -249,10 +277,11 @@ $("#simulatorCanvas").mousedown(function(e)
 {
 	startMouseX=e.offsetX - trasl[0];
 	startMouseY=e.offsetY - trasl[1];
+	
 
 	
 	console.log("offsetX" + e.offsetX + "offsetY" + e.offsetY);
-    
+	
 	switch(toolSelected)
 	{
 		case 0:
@@ -270,12 +299,17 @@ $("#simulatorCanvas").mousedown(function(e)
 			CANVAS_SCALE /= SCALE_FACTOR;
 			break;
 		}
-        case 3:
-        {
-            planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
-            console.log(planetSelected)
-            if(planetSelected != -1) planetsArray.splice(planetSelected, 1);
-        }
+		case 3:
+		{
+			md = 1;
+			
+		}
+		case 4:
+		{
+			planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
+			console.log(planetSelected)
+			if(planetSelected != -1) planetsArray.splice(planetSelected, 1);
+		}
 		default:
 		{
 
@@ -285,16 +319,16 @@ $("#simulatorCanvas").mousedown(function(e)
 			{
 				var p = planetsArray[planetSelected];
 				cp.style.background = "100% / cover url(Images/" + p.colorTheme + "/1.jpg)";
-                cp.style.boxShadow = "inset 0px 0px 50px 15px rgba(0, 0, 0, 0.9)";
+				cp.style.boxShadow = "inset 0px 0px 50px 15px rgba(0, 0, 0, 0.9)";
 				
 				cp.style.backgroundPosition = "0 0";
-                clearInterval(tid);
+				clearInterval(tid);
 				tid = setInterval(transl, 30);		
 			}
 			else
 			{
 				cp.style.background = "";
-                cp.style.boxShadow ="";
+				cp.style.boxShadow ="";
 				
 			}
 		}
@@ -308,7 +342,6 @@ var cp = $("#planetRender").children()[0];
 function transl() 
 {
 	cp.style.backgroundPosition = "-"+offsetTranslation+"px 0";
-	//cp.style.background = "100% / cover url(Images/shadow.png)";
 	offsetTranslation=(++offsetTranslation)%1024;
 }
 
@@ -316,41 +349,55 @@ $("#simulatorCanvas").mouseup(function(e)
 {
 	if((toolSelected==0) && (md == 1))
 	{
-		//console.log("bella");
 		canvasOrigin[0] = canvasOrigin[0]+traslX;
 		canvasOrigin[1] = canvasOrigin[1]+traslY;
 		
 		c.clearRect(-canvasOrigin[0], -canvasOrigin[1], can_w, can_h);		
 		c.translate(e.offsetX- startMouseX, e.offsetY- startMouseY);
-
-		/*planetsArray.push({
-		planetName: "Origin",
-		radius: 10,
-		mass: 0,
-		x: 0,
-		y: 0,
-		speedX: 0,
-		speedY: 0,
-		colorTheme: "yellow"*/
 	}
 
-		md = 0;
+	md = 0;
 });
 
 $("#simulatorCanvas").mousemove(function(e)
-{
-	if((toolSelected==0) && (md == 1))
+{  
+	/*
+	if( (toolSelected == 3) && (md == 1))
 	{
-		trasl[0]=e.offsetX- startMouseX;
-		trasl[1]=e.offsetY- startMouseY;
+		c.beginPath();
+		c.arc(startMouseX, startMouseY, defaultFastPlanetRadius, 0, 2*Math.PI); 
+		c.fillStyle = colorArray[colorArrayIndex];
+		c.fill();
 		
-	}
+		c.beginPath();
+		c.moveTo(startMouseX, startMouseY);
+		c.lineTo(e.offsetX - trasl[0], e.offsetY-trasl[1])
+		c.strokeStyle = "#0099FF";
+		c.lineWidth="5";
+		c.closePath();
+	}*/
 
 });
 
 $("#corpo").mouseup(function(e)
 {
-		md = 0;
+	if(toolSelected == 3 && (bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1])== -1))
+	{
+		planetsArray.push({
+			planetName: "fast planet" + fastPlanetNumber,
+			radius: defaultFastPlanetRadius,
+			mass: defaultFastPlanetMass,
+			x: startMouseX,
+			y: startMouseY,
+			speedX: (e.offsetX - trasl[0] -startMouseX)/10 ,
+			speedY: (e.offsetY - trasl[0] -startMouseY)/10,
+			colorTheme: colorArray[colorArrayIndex]
+		});
+		colorArrayIndex = (colorArrayIndex+1)%colorArray.length;
+		console.log(colorArrayIndex);
+
+	}
+	md = 0;
 });
 
 
@@ -361,7 +408,7 @@ function allButtonsStyleRestore()
 	$("#panMenuElement").css("background", "");
 	$("#zoomInMenuElement").css("background", "");
 	$("#zoomOutMenuElement").css("background", "");
-    $("#deletePlanetMenuElement").css("background", "");
+	$("#deletePlanetMenuElement").css("background", "");
 }
 
 

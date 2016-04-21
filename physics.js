@@ -80,7 +80,6 @@ function updatePlanets(planets, t)
 				var newSpeedY = (old_p.speedY*old_p.mass + planets[i].speedY*planets[i].mass)/(old_p.mass+planets[i].mass);
                 var heavierPlanet;
 				
-                console.log(newSpeedX);
 				if(old_p.mass > planets[i].mass) heavierPlanet = old_p;
 				else heavierPlanet = planets[i];
 					
