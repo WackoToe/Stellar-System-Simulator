@@ -47,58 +47,6 @@ var defaultFastPlanetMass = 50;     //Default mass when we do a fast planet add
 
 
 
-// When the user clicks the button, open the modal 
-$("#planetButton").click(function() {
-	$("#planetModal")[0].style.display = "block";
-});
-
-$("#starButton").click(function() {
-	$("#starModal")[0].style.display = "block";
-});
-
-$("#planetModal .close").click(function() {
-	$("#planetModal")[0].style.display = "none";
-});
-
-$("#starModal .close").click(function() {
-	$("#starModal")[0].style.display = "none";
-});
-
-// When the user clicks anywhere outside of the modal, close it
-$(window).click(function(event) {
-	if (event.target == $("#planetModal")[0]) {
-		$("#planetModal")[0].style.display = "none";
-	}
-	if (event.target == $("#starModal")[0]) {
-		$("#starModal")[0].style.display = "none";
-	}
-});
-
-
-//Insert a new planet in planetsArray when the planetSubmitButton is clicked
-$("[name=planetSubmitButton]").click(function(){
-	planetsArray.push({
-		planetName: $('#planetModal [name=planetName]').val()||"planet",
-		radius: parseInt( $('#planetModal [name=radius]').val() )||10,
-		mass: parseInt( $('#planetModal [name=mass]').val() )||0,
-		x: parseInt( $('#planetModal [name=x]').val() )||0,
-		y: parseInt( $('#planetModal [name=y]').val() )||0,
-		speedX: parseInt( $('#planetModal [name=speedX]').val() )||0,
-		speedY: parseInt( $('#planetModal [name=speedY]').val() )||0,
-		colorTheme: $('#planetModal [name=colorTheme]').val()||"#FFF"
-	});
-	//$("#planetModal input").val('');
-	$("#planetModal")[0].style.display = "none";
-});
-
-
-$("#cleanAllButton").click(function(){
-	for(i = planetsArray.length-1; i >= 0 ; i--) planetsArray.pop()
-	planetsArray.map(planetsArray.pop());
-});
-
-
-
 function drawPlanet(p){ // Disegna un singolo pianeta
 	c.beginPath();
 	c.arc(p.x, p.y, p.radius, 0, 2*Math.PI); 
@@ -116,8 +64,7 @@ function drawGravity()
 	{
 		for(j; j<can_h; i=i+100/CANVAS_SCALE)
 		{
-			f = calculateForces(i,j);
-			
+			f = calculateForces(i,j);	
 		}
 	}
 }
@@ -136,8 +83,7 @@ function begin()
 		planetsArray = collisionResolution(planetsArray);
 		/* Funzione che restituisce un nuovo array con i pianeti aggiornati dopo il tempo t */
 		planetsArray = updatePlanets(planetsArray, t);
-		
-		
+				
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
 
@@ -167,109 +113,16 @@ function bodySelected(x, y)
 		}
 	}
 
-	if(_planetSelected!= -1)return _planetSelected;
+	if(_planetSelected != -1)return _planetSelected;
 	else return -1;
 }
 
-
-
-/*PAN HANDLER*/
 var startMouseX;
 var startMouseY;
 var traslX;
 var traslY;
 var md = 0;												//se e' uguale a 1 indica che il mouse e' cliccato, altrimenti e' uguale a 0
 var canvasOrigin = [0, 0];
-
-/* PAN HANDLER */
-$("#panButton").click(function() 
-{
-	if(toolSelected == 0)
-	{
-		toolSelected = -1;
-		allButtonsStyleRestore();
-	}
-	else
-	{
-		toolSelected = 0;
-		allButtonsStyleRestore();
-		$("#panMenuElement").css("background", "#0c7fb0");
-	}
-	
-});
-
-
-/* ZOOM HANDLER */
-$("#zoomInButton").click(function() 
-{
-	if(toolSelected==1)
-	{
-		toolSelected = -1;
-		allButtonsStyleRestore();
-	}
-	else
-	{
-		toolSelected = 1;
-		allButtonsStyleRestore();
-		$("#zoomInMenuElement").css("background", "#0c7fb0");
-	}
-});
-
-
-$("#zoomOutButton").click(function() 
-{
-	if(toolSelected==2)
-	{
-		toolSelected = -1;
-		allButtonsStyleRestore();
-	}
-	else
-	{
-		toolSelected = 2;
-		allButtonsStyleRestore();
-		$("#zoomOutMenuElement").css("background", "#0c7fb0");
-		console.log("ZoomOut selected");
-	}
-});
-
-/* FAST ADD PLANET HANDLER */
-$("#fastAddButton").click(function()
-{
-	if(toolSelected==3)
-	{
-		toolSelected = -1;
-		allButtonsStyleRestore();
-	}
-	else
-	{
-		toolSelected = 3;
-		allButtonsStyleRestore();
-		$("#fastAddMenuElement").css("background", "#0c7fb0");
-		console.log("FastAdd selected");
-	}
-	
-})
-
-
-/* DELETE PLANET HANDLER */
-$("#deletePlanetButton").click(function()
-{
-	if(toolSelected==4)
-	{
-		toolSelected = -1;
-		allButtonsStyleRestore();
-	}
-	else
-	{
-		toolSelected = 4;
-		allButtonsStyleRestore();
-		$("#deletePlanetMenuElement").css("background", "#FF0000");
-		console.log("deletePlanet slected");
-	}
-})
-
-
-
 
 
 //Gestione di un click all'interno del canvas
@@ -302,6 +155,7 @@ $("#simulatorCanvas").mousedown(function(e)
 		case 3:
 		{
 			md = 1;
+            break;
 			
 		}
 		case 4:
@@ -309,10 +163,10 @@ $("#simulatorCanvas").mousedown(function(e)
 			planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
 			console.log(planetSelected)
 			if(planetSelected != -1) planetsArray.splice(planetSelected, 1);
+            break;
 		}
 		default:
 		{
-
 			planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
 
 			if(planetSelected != -1) 
@@ -335,6 +189,11 @@ $("#simulatorCanvas").mousedown(function(e)
 	}
 });
 
+$("#cleanAllButton").click(function(){
+	for(i = planetsArray.length-1; i >= 0 ; i--) planetsArray.pop()
+	planetsArray.map(planetsArray.pop());
+});
+
 var tid;
 var offsetTranslation=10;
 var cp = $("#planetRender").children()[0];
@@ -354,6 +213,23 @@ $("#simulatorCanvas").mouseup(function(e)
 		
 		c.clearRect(-canvasOrigin[0], -canvasOrigin[1], can_w, can_h);		
 		c.translate(e.offsetX- startMouseX, e.offsetY- startMouseY);
+	}
+    
+    if((toolSelected) == 3 && (bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1])== -1))
+	{
+		planetsArray.push({
+			planetName: "fast planet" + fastPlanetNumber,
+			radius: defaultFastPlanetRadius,
+			mass: defaultFastPlanetMass,
+			x: startMouseX,
+			y: startMouseY,
+			speedX: (e.offsetX - trasl[0] -startMouseX)/10 ,
+			speedY: (e.offsetY - trasl[0] -startMouseY)/10,
+			colorTheme: colorArray[colorArrayIndex]
+		});
+		colorArrayIndex = (colorArrayIndex+1)%colorArray.length;
+		console.log(colorArrayIndex);
+
 	}
 
 	md = 0;
@@ -381,35 +257,8 @@ $("#simulatorCanvas").mousemove(function(e)
 
 $("#corpo").mouseup(function(e)
 {
-	if(toolSelected == 3 && (bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1])== -1))
-	{
-		planetsArray.push({
-			planetName: "fast planet" + fastPlanetNumber,
-			radius: defaultFastPlanetRadius,
-			mass: defaultFastPlanetMass,
-			x: startMouseX,
-			y: startMouseY,
-			speedX: (e.offsetX - trasl[0] -startMouseX)/10 ,
-			speedY: (e.offsetY - trasl[0] -startMouseY)/10,
-			colorTheme: colorArray[colorArrayIndex]
-		});
-		colorArrayIndex = (colorArrayIndex+1)%colorArray.length;
-		console.log(colorArrayIndex);
-
-	}
 	md = 0;
 });
-
-
-
-/* Ripristina lo stile di tutti i bottoni */
-function allButtonsStyleRestore()
-{
-	$("#panMenuElement").css("background", "");
-	$("#zoomInMenuElement").css("background", "");
-	$("#zoomOutMenuElement").css("background", "");
-	$("#deletePlanetMenuElement").css("background", "");
-}
 
 
 
@@ -435,16 +284,3 @@ planetsArray.push({
 	speedY: 10,
 	colorTheme: "red"
 });
-
-
-
-/*planetsArray.push({
-		planetName: "Origin",
-		radius: 10,
-		mass: 0,
-		x: 0,
-		y: 0,
-		speedX: 0,
-		speedY: 0,
-		colorTheme: "yellow"
-});*/

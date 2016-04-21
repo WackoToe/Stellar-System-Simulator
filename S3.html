@@ -7,10 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="menu.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="S3styles.css" media="screen" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<script src="math.js" type="text/javascript"></script>
-    <script src="physics.js" type="text/javascript"></script>
 	<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
-	<script src="jquery.min.js"></script>
+	
 
 
 	<style>p {text-align: justify; text-indent: 12px;}</style>
@@ -37,17 +35,17 @@
 		</li>
 
 		<li><a><span>Grav. Field</span></a></li>
-        <li><a id="gravFieldElement"><button id="gravFieldButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">blur_on</i></button></a></li>
+		<li><a id="gravFieldElement"><button id="gravFieldButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">blur_on</i></button></a></li>
 		<li><a id="panMenuElement"><button id="panButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">pan_tool</i></button></a></li>
 		<li><a id="zoomInMenuElement"><button id="zoomInButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">zoom_in</i></button></a></li>	
 		<li><a id="zoomOutMenuElement"><button id="zoomOutButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">zoom_out</i></button></a></li>
-        <li><a id="fastAddMenuElement"><button id="fastAddButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">add_circle</i></button></a></li>
-        <li><a id="deletePlanetMenuElement"><button id="deletePlanetButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">clear</i></button></a></li>
-        <li><a id="cleanAllMenuElement"><button id="cleanAllButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">delete</i></button></a></li>
-        
-        
-        
-        <!--
+		<li><a id="fastAddMenuElement"><button id="fastAddButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">add_circle</i></button></a></li>
+		<li><a id="deletePlanetMenuElement"><button id="deletePlanetButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">clear</i></button></a></li>
+		<li><a id="cleanAllMenuElement"><button id="cleanAllButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">delete</i></button></a></li>
+		
+		
+		
+		<!--
 		<li class='has-sub'><a><i class="material-icons" style="font-size:22px;">delete</i></a>
 		<ul>
 			<li><a><button id="deleteBodyButton" class='transparentButton'><span>Delete body</span></button></a></li>
@@ -71,18 +69,18 @@
 					<input type="number" name="y" placeholder="y coordinate" />
 					<input type="number" name="speedX" placeholder="x velocity" />
 					<input type="number" name="speedY" placeholder="y velocity" />
-                    <select name="colorTheme">
-                        <option selected value="blue">Blue</option>
-                        <option value="brown">Brown</option>
-                        <option value="green">Green</option>
-                        <option value="grey">Grey</option>
-                        <option value="pink">Pink</option>
-                        <option value="purple">Purple</option>
-                        <option value="red">Red</option>
-                        <option value="silver">Silver</option>
-                        <option value="white">White</option>
-                        <option value="yellow">Yellow</option>
-                    </select>
+					<select name="colorTheme">
+						<option selected value="blue">Blue</option>
+						<option value="brown">Brown</option>
+						<option value="green">Green</option>
+						<option value="grey">Grey</option>
+						<option value="pink">Pink</option>
+						<option value="purple">Purple</option>
+						<option value="red">Red</option>
+						<option value="silver">Silver</option>
+						<option value="white">White</option>
+						<option value="yellow">Yellow</option>
+					</select>
 					<!--<input type="text" name="colorTheme" placeholder="Planet color theme" />-->
 					<input type="submit" name="planetSubmitButton" value="Create"/>
 			</div>
@@ -110,14 +108,19 @@
 
 
 <div id="planetRender">
-    <div></div>
+	<div></div>
 </div>
 
 <div  id="autoscale">
 	<canvas id="simulatorCanvas"></canvas>
 </div>
 
-<script type="text/javascript" src="myScript.js"></script>
+<script src="jquery.min.js"></script>
+<script src="myScript.js" type="text/javascript"></script>
+<script src="physics.js" type="text/javascript"></script>
+<script src="modals.js" type="text/javascript"></script>
+<script src="tools.js" type="text/javascript"></script>
+
 
 </body>
 </html>
