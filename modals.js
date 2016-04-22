@@ -38,6 +38,20 @@ $("[name=planetSubmitButton]").click(function(){
 		speedY: parseInt( $('#planetModal [name=speedY]').val() )||0,
 		colorTheme: $('#planetModal [name=colorTheme]').val()||"#FFF"
 	});
-	//$("#planetModal input").val('');
 	$("#planetModal")[0].style.display = "none";
+});
+
+//Insert a new star in planetsArray when the planetSubmitButton is clicked
+$("[name=starSubmitButton]").click(function(){
+	planetsArray.push({
+		planetName: $('#starModal [name=starName]').val()||"star",
+		radius: parseInt( $('#starModal [name=radius]').val() )||10,
+		mass: parseInt( $('#starModal [name=mass]').val() )||0,
+		x: parseInt( $('#starModal [name=x]').val() )||0,
+		y: parseInt( $('#starModal [name=y]').val() )||0,
+		speedX: parseInt( $('#starModal [name=speedX]').val() )||0,
+		speedY: parseInt( $('#starModal [name=speedY]').val() )||0,
+		colorTheme: $('#starModal [name=colorTheme]').val()||"#FFF"
+	});
+	$("#starModal")[0].style.display = "none";
 });

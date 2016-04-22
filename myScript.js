@@ -22,8 +22,6 @@ var CANVAS_SCALE = 1.0;
 
 var trasl = [0, 0];
 
-
-
 /* 	La variabile toolSelected indica quale strumento stiamo utilizzando:
 *	-1: non stiamo utilizzando alcuno strumento
 *	0: stiamo utilizzando il pan
@@ -52,21 +50,6 @@ function drawPlanet(p){ // Disegna un singolo pianeta
 	c.arc(p.x, p.y, p.radius, 0, 2*Math.PI); 
 	c.fillStyle = p.colorTheme;
 	c.fill();
-}
-
-function drawGravity()
-{
-	var i = 50/CANVAS_SCALE;
-	var j = 50/CANVAS_SCALE;
-	var f = [0,0];
-	
-	for(i; i<can_w; i=i+100/CANVAS_SCALE)
-	{
-		for(j; j<can_h; i=i+100/CANVAS_SCALE)
-		{
-			f = calculateForces(i,j);	
-		}
-	}
 }
 
 function begin()
@@ -276,11 +259,11 @@ planetsArray.push({
 
 planetsArray.push({
 	planetName: "mars",
-	radius: 10,
-	mass: 100,
+	radius: 20,
+	mass: 200,
 	x: 50,
 	y: 550,
 	speedX: 10,
-	speedY: 10,
+	speedY: -30,
 	colorTheme: "red"
 });
