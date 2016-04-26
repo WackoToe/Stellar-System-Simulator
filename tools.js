@@ -1,3 +1,17 @@
+$("#gravFieldButton").click(function()
+{
+    if(gravityVisualizer == 0)
+    {
+        gravityVisualizer = 1;
+        $("#gravFieldElement").css("background", "#009999");
+    }
+    else
+    {
+        gravityVisualizer = 0;
+        $("#gravFieldElement").css("background", "");
+    }
+});
+
 /* PAN HANDLER */
 $("#panButton").click(function() 
 {

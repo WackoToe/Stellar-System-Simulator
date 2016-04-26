@@ -63,14 +63,14 @@ function begin()
 		var t = (time - start)/1000.0; // Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
 
-		planetsArray = collisionResolution(planetsArray);
-		/* Funzione che restituisce un nuovo array con i pianeti aggiornati dopo il tempo t */
-		planetsArray = updatePlanets(planetsArray, t);
+		planetsArray = collisionResolution(planetsArray);   //Returns the updated array planet after the collisions are solved
+		planetsArray = updatePlanets(planetsArray, t);      //Returns the updated array planet after t time
+        //if(drawGravityOn) drawGravity();
 				
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
 
-		if(gravityVisualizer == 1) drawGravity()
+		//if(gravityVisualizer == 1) drawGravity()
 		planetsArray.map(drawPlanet);
 		c.translate(-trasl[0], -trasl[1]);
 		window.requestAnimationFrame(next);
@@ -186,6 +186,8 @@ function transl()
 	cp.style.backgroundPosition = "-"+offsetTranslation+"px 0";
 	offsetTranslation=(++offsetTranslation)%1024;
 }
+
+
 
 $("#simulatorCanvas").mouseup(function(e)
 {
