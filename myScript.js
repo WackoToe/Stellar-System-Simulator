@@ -13,15 +13,6 @@ window.onresize = function(){
 	can.width = can_w = $("#autoscale")[0].clientWidth;
 };
 
-//var simCanvTransf = [ [1,0,0] , [0, 1, 0], [0, 0, 1]];
-
-
-var i;
-var SCALE_FACTOR = 1.1;
-var CANVAS_SCALE = 1.0;
-
-var trasl = [0, 0];
-
 /* 	La variabile toolSelected indica quale strumento stiamo utilizzando:
 *	-1: non stiamo utilizzando alcuno strumento
 *	0: stiamo utilizzando il pan
@@ -31,17 +22,22 @@ var trasl = [0, 0];
 *   4: stiamo eliminando un pianeta
 */
 var toolSelected = -1;
-
-var planetSelected = -1;		//Tells the index of the selected planet in planetsArray
-
-var gravityVisualizer = 0;
-
+var i;
+var SCALE_FACTOR = 1.1;
+var CANVAS_SCALE = 1.0;
+var planetSelected = -1;		                                                  							//Tells the index of the selected planet in planetsArray
+var gravityVisualizer = 0;																					//Tells if gravity field line must be draw on simulatorCanvas
 var colorArray = ["Blue", "brown", "green", "grey", "pink", "purple", "red", "silver", "white", "Yellow"]   //Contains all the available colors
-var colorArrayIndex = 0;    //Used to decide what is the color of the planet added fast
-
-var fastPlanetNumber = 0;           //Tells how many times we added a planet in the fast way
-var defaultFastPlanetRadius = 50;   //Default radius when we do a fast planet add
-var defaultFastPlanetMass = 50;     //Default mass when we do a fast planet add
+var colorArrayIndex = 0;    																				//Used to decide what is the color of the planet added fast
+var fastPlanetNumber = 0;           																		//Tells how many times we added a planet in the fast way
+var defaultFastPlanetRadius = 50;   																		//Default radius when we do a fast planet add
+var defaultFastPlanetMass = 50;     																		//Default mass when we do a fast planet add
+var startMouseX;																							//Tells the X coordinate where a mouseDown event occurs
+var startMouseY;																							//Tells the Y coordinate where a mouseDown event occurs
+var currentMouseX;																							//Tells the current X coordinate after a mouseMove
+var currentMouseY;																							//Tells the current Y coordinate after a mouseMove
+var md = 0;																									//When is 1, tells that mouse is clicked. Otherwise is 0
+var canvasOrigin = [0, 0];
 
 
 
@@ -60,23 +56,22 @@ function begin()
 	{
 		if(!start) start = time; // inizializza start durante la prima chiamata di next()
 		else c.restore();
-		var t = (time - start)/1000.0; // Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
+		var t = (time - start)/1000.0; 										// Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
 
-		planetsArray = collisionResolution(planetsArray);   //Returns the updated array planet after the collisions are solved
-		planetsArray = updatePlanets(planetsArray, t);      //Returns the updated array planet after t time
-        //if(drawGravityOn) drawGravity();
+		planetsArray = collisionResolution(planetsArray);   				//Returns the updated array planet after the collisions are solved
+		planetsArray = updatePlanets(planetsArray, t);     					//Returns the updated array planet after t time
 				
 		c.save();
-		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); // Pulisce tutto
+		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); 	// Clean all
 
 		//if(gravityVisualizer == 1) drawGravity()
 		planetsArray.map(drawPlanet);
-		c.translate(-trasl[0], -trasl[1]);
+		if( (toolSelected == 3) && (md == 1)) drawFastPlanet();
 		window.requestAnimationFrame(next);
 	}
 
-	window.requestAnimationFrame(next); // Chiama l'esecuzione del primo ciclo
+	window.requestAnimationFrame(next); 									// Chiama l'esecuzione del primo ciclo
 }
 
 begin(); // Fa partire il ciclo grafico
@@ -100,21 +95,29 @@ function bodySelected(x, y)
 	else return -1;
 }
 
-var startMouseX;
-var startMouseY;
-var traslX;
-var traslY;
-var md = 0;												//se e' uguale a 1 indica che il mouse e' cliccato, altrimenti e' uguale a 0
-var canvasOrigin = [0, 0];
-
+function drawFastPlanet()
+{
+	c.beginPath();
+	c.arc(startMouseX, startMouseY, defaultFastPlanetRadius, 0, 2*Math.PI); 
+	c.fillStyle = colorArray[colorArrayIndex];
+	c.fill();
+	
+	c.beginPath();
+	c.moveTo(startMouseX, startMouseY);
+	c.lineTo(currentMouseX, currentMouseY);
+	c.strokeStyle = "#0099FF";
+	c.lineWidth="5";
+	c.closePath();
+	c.stroke();
+}
 
 //Gestione di un click all'interno del canvas
 $("#simulatorCanvas").mousedown(function(e)
 {
-	startMouseX=e.offsetX - trasl[0];
-	startMouseY=e.offsetY - trasl[1];
-	
-
+	startMouseX=e.offsetX;
+	startMouseY=e.offsetY;
+	currentMouseX = e.offsetX;
+	currentMouseY = e.offsetY;
 	
 	console.log("offsetX" + e.offsetX + "offsetY" + e.offsetY);
 	
@@ -138,19 +141,19 @@ $("#simulatorCanvas").mousedown(function(e)
 		case 3:
 		{
 			md = 1;
-            break;
+			break;
 			
 		}
 		case 4:
 		{
-			planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
+			planetSelected = bodySelected(e.offsetX, e.offsetY);
 			console.log(planetSelected)
 			if(planetSelected != -1) planetsArray.splice(planetSelected, 1);
-            break;
+			break;
 		}
 		default:
 		{
-			planetSelected = bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1]);
+			planetSelected = bodySelected(e.offsetX, e.offsetY);
 
 			if(planetSelected != -1) 
 			{
@@ -178,7 +181,7 @@ $("#cleanAllButton").click(function(){
 });
 
 var tid;
-var offsetTranslation=10;
+var offsetTranslation=0;
 var cp = $("#planetRender").children()[0];
 
 function transl() 
@@ -191,16 +194,7 @@ function transl()
 
 $("#simulatorCanvas").mouseup(function(e)
 {
-	if((toolSelected==0) && (md == 1))
-	{
-		canvasOrigin[0] = canvasOrigin[0]+traslX;
-		canvasOrigin[1] = canvasOrigin[1]+traslY;
-		
-		c.clearRect(-canvasOrigin[0], -canvasOrigin[1], can_w, can_h);		
-		c.translate(e.offsetX- startMouseX, e.offsetY- startMouseY);
-	}
-    
-    if((toolSelected) == 3 && (bodySelected(e.offsetX + canvasOrigin[0], e.offsetY + canvasOrigin[1])== -1))
+	if((toolSelected) == 3 && (bodySelected(e.offsetX, e.offsetY)== -1))
 	{
 		planetsArray.push({
 			planetName: "fast planet" + fastPlanetNumber,
@@ -208,8 +202,8 @@ $("#simulatorCanvas").mouseup(function(e)
 			mass: defaultFastPlanetMass,
 			x: startMouseX,
 			y: startMouseY,
-			speedX: (e.offsetX - trasl[0] -startMouseX)/10 ,
-			speedY: (e.offsetY - trasl[0] -startMouseY)/10,
+			speedX: (e.offsetX - startMouseX)/4,
+			speedY: (e.offsetY - startMouseY)/4,
 			colorTheme: colorArray[colorArrayIndex]
 		});
 		colorArrayIndex = (colorArrayIndex+1)%colorArray.length;
@@ -222,22 +216,8 @@ $("#simulatorCanvas").mouseup(function(e)
 
 $("#simulatorCanvas").mousemove(function(e)
 {  
-	/*
-	if( (toolSelected == 3) && (md == 1))
-	{
-		c.beginPath();
-		c.arc(startMouseX, startMouseY, defaultFastPlanetRadius, 0, 2*Math.PI); 
-		c.fillStyle = colorArray[colorArrayIndex];
-		c.fill();
-		
-		c.beginPath();
-		c.moveTo(startMouseX, startMouseY);
-		c.lineTo(e.offsetX - trasl[0], e.offsetY-trasl[1])
-		c.strokeStyle = "#0099FF";
-		c.lineWidth="5";
-		c.closePath();
-	}*/
-
+	currentMouseX = e.offsetX;
+	currentMouseY = e.offsetY;
 });
 
 $("#corpo").mouseup(function(e)
