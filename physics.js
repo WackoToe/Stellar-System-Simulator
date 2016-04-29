@@ -11,18 +11,32 @@ function speed(t, v0, a)
 	return v0 + t*a;
 }
 
+
 function force(p0, plist)
 { // calcola l'accelerazione su p0 dovuta a plist (lista di pianeti)
-	var G = 6.67 * Math.pow( 10, 1 ); // Costante di gravitazione universale
+	var G = 6.67 * Math.pow( 10, 1 ); // Universal gravitation constant
 	var a = [0,0]; // accelerazione x, y
 	plist.map(function(p)
 	{
 		if(p == p0) return; // il pianeta non applica forza a se stesso
-		var r = Math.sqrt( Math.pow(p.x-p0.x, 2 ) + Math.pow(p.y-p0.y, 2 ) ); // distanza dai centri
-		a[0] += (p.x-p0.x)*G* p.mass / Math.pow(r, 2); // accelerazione su x. Formula: -dx*G*M / r^2 
+		var r = Math.sqrt( Math.pow(p.x-p0.x, 2 ) + Math.pow(p.y-p0.y, 2 ) ); // distance between centers
+		a[0] += (p.x-p0.x)*G* p.mass / Math.pow(r, 2); // acceleration on x. Formula: -dx*G*M / r^2 
 		a[1] += (p.y-p0.y)*G* p.mass / Math.pow(r, 2);
 	});
-	return a; // ritorna l'accelerazione
+	return a; // return acceleration
+}
+
+function forceInPoint(x, y, plist)
+{
+    var G = 6.67 * Math.pow( 10, 1 ); // Universal gravitation constant
+	var a = [0,0]; // acceleration x, y
+	plist.map(function(p)
+	{
+		var r = Math.sqrt( Math.pow(p.x-x, 2 ) + Math.pow(p.y-y, 2 ) ); // distance from planet center to point (x,y)
+		a[0] += (p.x-x)*G* p.mass / Math.pow(r, 2); // acceleration on x. Formula: -dx*G*M / r^2 
+		a[1] += (p.y-y)*G* p.mass / Math.pow(r, 2);
+	});
+	return a; // return acceleration
 }
 
 

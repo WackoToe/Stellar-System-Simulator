@@ -65,7 +65,7 @@ function begin()
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); 	// Clean all
 
-		//if(gravityVisualizer == 1) drawGravity()
+		if(gravityVisualizer == 1) drawGravity()
 		planetsArray.map(drawPlanet);
 		if( (toolSelected == 3) && (md == 1)) drawFastPlanet();
 		window.requestAnimationFrame(next);
@@ -75,6 +75,31 @@ function begin()
 }
 
 begin(); // Fa partire il ciclo grafico
+
+function drawGravity()
+{
+	var i, j;
+	var a = [0,0];
+	incr = 50;
+	for(i=0; i<can_w; i+=incr)
+	{
+		for(j=0; j<can_h; j+=incr)
+		{
+			if(bodySelected(i,j) == -1)
+			{
+				a = forceInPoint(i, j, planetsArray);
+			
+				c.beginPath();
+				c.moveTo(i, j);
+				c.lineTo(i+a[0], j+a[1]);
+				c.strokeStyle = "#66CC66";
+				c.lineWidth="3";
+				c.closePath();
+				c.stroke();
+			}
+		}
+	}
+}
 
 
 //Funzione che restituisce l'indice nell'array planetsArray del pianeta selezionato

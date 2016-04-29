@@ -9,4 +9,5 @@ S3 allows you to:
 * delete planet
 
 ### Screenshot
-![screenshot1] (Images/presentationScreenshot.png)
+![screenshot1] (Images/presentationScreenshot1.png)
+![screenshot2] (Images/presentationScreenshot2.png)
