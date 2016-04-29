@@ -99,6 +99,22 @@ $("#deletePlanetButton").click(function()
 	}
 })
 
+/* PAUSE SIMULATION HANDLER */
+
+$("#pausePlayButton").click(function()
+{
+    if(pauseSimulation)
+    {
+        pauseSimulation = 0;
+        $("#pausePlayElement").css("background", "");
+    }
+    else
+    {
+        pauseSimulation = 1;
+        $("#pausePlayElement").css("background", "#FF9900");
+    }
+})
+
 /* Ripristina lo stile di tutti i bottoni */
 function allButtonsStyleRestore()
 {

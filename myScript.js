@@ -27,6 +27,7 @@ var SCALE_FACTOR = 1.1;
 var CANVAS_SCALE = 1.0;
 var planetSelected = -1;		                                                  							//Tells the index of the selected planet in planetsArray
 var gravityVisualizer = 0;																					//Tells if gravity field line must be draw on simulatorCanvas
+var pauseSimulation = 0;																					//Tells when the simulation is going
 var colorArray = ["Blue", "brown", "green", "grey", "pink", "purple", "red", "silver", "white", "Yellow"]   //Contains all the available colors
 var colorArrayIndex = 0;    																				//Used to decide what is the color of the planet added fast
 var fastPlanetNumber = 0;           																		//Tells how many times we added a planet in the fast way
@@ -58,9 +59,14 @@ function begin()
 		else c.restore();
 		var t = (time - start)/1000.0; 										// Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
+		
+		
+		if(!pauseSimulation)												//When the simulation is paused, we don't need to update
+		{
+			planetsArray = collisionResolution(planetsArray);   			//Returns the updated array planet after the collisions are solved
+			planetsArray = updatePlanets(planetsArray, t);     				//Returns the updated array planet after t time			
+		}
 
-		planetsArray = collisionResolution(planetsArray);   				//Returns the updated array planet after the collisions are solved
-		planetsArray = updatePlanets(planetsArray, t);     					//Returns the updated array planet after t time
 				
 		c.save();
 		c.clearRect(canvasOrigin[0], canvasOrigin[1], can_w+5, can_h+5); 	// Clean all
@@ -91,7 +97,7 @@ function drawGravity()
 			
 				c.beginPath();
 				c.moveTo(i, j);
-				c.lineTo(i+a[0], j+a[1]);
+				c.lineTo(i+a[0]/4, j+a[1]/4);
 				c.strokeStyle = "#66CC66";
 				c.lineWidth="3";
 				c.closePath();
@@ -256,7 +262,7 @@ $("#corpo").mouseup(function(e)
 planetsArray.push({
 		planetName: "earthBlue",
 		radius: 50,
-		mass: 500,
+		mass: 600,
 		x: 200,
 		y: 200,
 		speedX: 0,
@@ -267,10 +273,10 @@ planetsArray.push({
 planetsArray.push({
 	planetName: "mars",
 	radius: 20,
-	mass: 200,
+	mass: 20,
 	x: 50,
 	y: 550,
-	speedX: 10,
-	speedY: -30,
+	speedX: 100,
+	speedY: 40,
 	colorTheme: "red"
 });
