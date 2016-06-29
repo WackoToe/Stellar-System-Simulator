@@ -1,15 +1,15 @@
 $("#gravFieldButton").click(function()
 {
-    if(gravityVisualizer == 0)
-    {
-        gravityVisualizer = 1;
-        $("#gravFieldElement").css("background", "#009999");
-    }
-    else
-    {
-        gravityVisualizer = 0;
-        $("#gravFieldElement").css("background", "");
-    }
+	if(gravityVisualizer == 0)
+	{
+		gravityVisualizer = 1;
+		$("#gravFieldElement").css("background", "#009999");
+	}
+	else
+	{
+		gravityVisualizer = 0;
+		$("#gravFieldElement").css("background", "");
+	}
 });
 
 /* PAN HANDLER */
@@ -103,16 +103,28 @@ $("#deletePlanetButton").click(function()
 
 $("#pausePlayButton").click(function()
 {
-    if(pauseSimulation)
-    {
-        pauseSimulation = 0;
-        $("#pausePlayElement").css("background", "");
-    }
-    else
-    {
-        pauseSimulation = 1;
-        $("#pausePlayElement").css("background", "#FF9900");
-    }
+	if(pauseSimulation)
+	{
+		pauseSimulation = 0;
+		$("#pausePlayElement").css("background", "");
+	}
+	else
+	{
+		pauseSimulation = 1;
+		$("#pausePlayElement").css("background", "#FF9900");
+		/*$("#pausePlayElement").css("animation-timing-function", "ease");
+		$("#pausePlayElement").css("animation-duration", "3s");
+		$("#pausePlayElement").WebkitTransition = 'pauseChangeColor 1s';
+		$("#pausePlayElement").css("animation-iteration-count", "infinite");
+		
+		$("#pausePlayElement").style.WebkitAnimationName = "pauseChangeColor";
+		$("#pausePlayElement").style.animationTimingFunction = "ease";
+		$("#pausePlayElement").style.animationDuration = "3s";
+		$("#pausePlayElement").style.animationIterationCount = "infinite";*/
+		
+	
+	
+	}
 })
 
 /* Ripristina lo stile di tutti i bottoni */
@@ -121,6 +133,6 @@ function allButtonsStyleRestore()
 	$("#panMenuElement").css("background", "");
 	$("#zoomInMenuElement").css("background", "");
 	$("#zoomOutMenuElement").css("background", "");
-    $("#fastAddMenuElement").css("background", "");
+	$("#fastAddMenuElement").css("background", "");
 	$("#deletePlanetMenuElement").css("background", "");
 }

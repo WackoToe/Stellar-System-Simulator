@@ -55,6 +55,25 @@ html,body
     animation-iteration-count: infinite;
 }
 
+/*#planetRender div:hover{
+    animation-name: floating;
+    animation-duration: 10s;
+    animation-timing-function: ease;
+}*/
+
+#some-element {
+  border: 1px solid #ccc;
+  display: none;
+  font-size: 10px;
+  margin-top: 200px;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+#planetRender :hover #some-element {
+  display: block;
+}
+
 /* Chrome, Safari, Opera */
 @-webkit-keyframes floating {
     0% {top:0px;}
@@ -67,4 +86,10 @@ html,body
     0% {top:0px;}
     50% {top:25px;}
     100% {top:0px;}
+}
+
+@-webkit-keyframes pauseChangeColor {
+    0% {background-color: red};
+    50% {background-color: #FF9900};
+    100% {background-color: red};
 }
