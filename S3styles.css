@@ -61,15 +61,6 @@ html,body
     animation-timing-function: ease;
 }*/
 
-#some-element {
-  border: 1px solid #ccc;
-  display: none;
-  font-size: 10px;
-  margin-top: 200px;
-  padding: 5px;
-  text-transform: uppercase;
-}
-
 #planetRender :hover #some-element {
   display: block;
 }

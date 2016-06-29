@@ -78,7 +78,7 @@ function begin()
 			planetsArray = updatePlanets(planetsArray, t);     				//Returns the updated array planet after t time			
 		}
 
-		if(gravityVisualizer == 1) drawGravity()
+		if((gravityVisualizer == 1)  ) drawGravity()
 		planetsArray.map(drawPlanet);
 		if( (toolSelected == 3) && (md == 1)) drawFastPlanet();
 		window.requestAnimationFrame(next);
@@ -93,11 +93,11 @@ function drawGravity()
 {
 	var i, j;
 	var a = [0,0];
-	var incr = 50/CANVAS_SCALE;
-	var lineWidth = 3/CANVAS_SCALE;
-	for(i=0; i<can_w/CANVAS_SCALE; i+=incr)
+	var incr = 50;
+	var lineWidth = 3;
+	for(i=0-trasl[0]; i<can_w  - trasl[0]; i+=incr)
 	{
-		for(j=0; j<can_h/CANVAS_SCALE; j+=incr)
+		for(j=0-trasl[1]; j<can_h  - trasl[1] ; j+=incr)
 		{
 			if(bodySelected(i,j) == -1)
 			{
@@ -124,7 +124,7 @@ function bodySelected(x, y)
 	var _planetSelected = -1;					//Variabile che indica se un pianeta e' stato selezionato
 	for(s1=0; s1<planetsArray.length; ++s1)
 	{
-		if(Math.sqrt((x-planetsArray[s1].x)*(x-planetsArray[s1].x) + (y-planetsArray[s1].y)*(y-planetsArray[s1].y)) < planetsArray[s1].radius)
+		if(Math.sqrt((x-planetsArray[s1].x)*(x-planetsArray[s1].x) + (y-planetsArray[s1].y)*(y-planetsArray[s1].y)) < planetsArray[s1].radius/CANVAS_SCALE)
 		{
 			_planetSelected = s1;
 			break;
@@ -186,13 +186,13 @@ $("#simulatorCanvas").mousedown(function(e)
 			c.translate(-e.offsetX, -e.offsetY);
 			c.restore();
 			CANVAS_SCALE *= SCALE_FACTOR;
+            console.log(CANVAS_SCALE);
 			break;
 		}
 		case 3:
 		{
 			md = 1;
-			break;
-			
+			break;	
 		}
 		case 4:
 		{
@@ -262,8 +262,8 @@ $("#simulatorCanvas").mouseup(function(e)
 				});
 				colorArrayIndex = (colorArrayIndex+1)%colorArray.length;
 				console.log(colorArrayIndex);
-
 			}
+            break;
 		}
 	}
 

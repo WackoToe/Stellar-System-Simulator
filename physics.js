@@ -33,8 +33,8 @@ function forceInPoint(x, y, plist)
 	plist.map(function(p)
 	{
 		var r = Math.sqrt( Math.pow(p.x-x, 2 ) + Math.pow(p.y-y, 2 ) ); // distance from planet center to point (x,y)
-		a[0] += (p.x-x)*G* p.mass / Math.pow(r, 2); // acceleration on x. Formula: -dx*G*M / r^2 
-		a[1] += (p.y-y)*G* p.mass / Math.pow(r, 2);
+		a[0] += ((p.x-x)*G* p.mass / Math.pow(r, 2))/CANVAS_SCALE; // acceleration on x. Formula: -dx*G*M / r^2 
+		a[1] += ((p.y-y)*G* p.mass / Math.pow(r, 2))/CANVAS_SCALE;
 	});
 	return a; // return acceleration
 }
@@ -85,7 +85,7 @@ function updatePlanets(planets, t)
 		for(i=index+1; i<planets.length; ++i)
 		{
 
-			var distance = Math.sqrt( Math.pow(planets[i].x-old_p.x, 2 ) + Math.pow(planets[i].y-old_p.y, 2 ) ) - planets[i].radius - old_p.radius;
+			var distance = Math.sqrt( Math.pow(planets[i].x-old_p.x, 2 ) + Math.pow(planets[i].y-old_p.y, 2 ) ) - (planets[i].radius)/CANVAS_SCALE - (old_p.radius)/CANVAS_SCALE;
 		
 			if(distance<=0)
 			{
