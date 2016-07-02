@@ -56,21 +56,22 @@ function begin()
 
 	var next = function(time)
 	{
-		if(!start) start = time;                // set start during the first next() call
+		if(!start)
+		{ 
+			start = time;                // set start during the first next() call
+			c.save();
+		}
 		var t = (time - start)/1000.0; 			// Ad ogni ciclo t sarà il numero di secondi passati dal ciclo precedente
 		start = time;
 		
-		/*
+		
 		c.restore();
+		
 		c.save();
-		*/
 		
-		c.clearRect(-trasl[0], -trasl[1], can_w+5, can_h+5); 	// Clean all
-		
-		/*
+		c.clearRect(trasl[0]-can_w, trasl[1]-can_h, 3*can_w, 3*can_h); 	// Clean all
 		c.translate(trasl[0], trasl[1]);
-		c.scale(CANVAS_SCALE, CANVAS_SCALE);
-		*/
+		//c.scale(CANVAS_SCALE, CANVAS_SCALE);	
 		
 		if(!pauseSimulation)												//When the simulation is paused, we don't need to update
 		{
@@ -186,7 +187,7 @@ $("#simulatorCanvas").mousedown(function(e)
 			c.translate(-e.offsetX, -e.offsetY);
 			c.restore();
 			CANVAS_SCALE *= SCALE_FACTOR;
-            console.log(CANVAS_SCALE);
+			console.log(CANVAS_SCALE);
 			break;
 		}
 		case 3:
@@ -263,7 +264,7 @@ $("#simulatorCanvas").mouseup(function(e)
 				colorArrayIndex = (colorArrayIndex+1)%colorArray.length;
 				console.log(colorArrayIndex);
 			}
-            break;
+			break;
 		}
 	}
 
@@ -279,14 +280,12 @@ $("#simulatorCanvas").mousemove(function(e)
 	
 	if((toolSelected == 0) && (md ==1))
 	{
-		//c.save();
-		c.translate((currentMouseX-startMouseX), (currentMouseY-startMouseY));
+		//c.translate((currentMouseX-startMouseX), (currentMouseY-startMouseY));
 		trasl[0] += currentMouseX-startMouseX;
 		trasl[1] += currentMouseY-startMouseY;
-		//c.restore();
 		startMouseX = e.offsetX;
 		startMouseY = e.offsetY;
-		console.log("X: " + trasl[0] + " Y: " + trasl[1]);
+		//console.log("X: " + trasl[0] + " Y: " + trasl[1]);
 	}
 	
 
