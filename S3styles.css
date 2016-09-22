@@ -12,7 +12,7 @@ html,body
 
 #autoscale{
 	float: left;
-	width: calc( 78% );
+	width: calc( 72% );
 	height: calc( 99% - 112px );
 	box-sizing: border-box;
 	border: 2px solid #0099FF;
@@ -83,4 +83,16 @@ html,body
     0% {background-color: red};
     50% {background-color: #FF9900};
     100% {background-color: red};
+}
+
+#fastRewindMenuElement :active {
+    background-color: #0c7fb0;
+}
+
+#fastForwardMenuElement :active {
+    background-color: #0c7fb0;
+}
+
+#cleanAllMenuElement :active {
+    background-color: #0c7fb0;
 }

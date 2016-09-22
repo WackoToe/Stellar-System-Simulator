@@ -81,6 +81,16 @@ $("#fastAddButton").click(function()
 	
 })
 
+/* FAST FORWARD HANDLER */
+$("#fastForwardButton").click(function()
+{
+	ANIMATION_TIME /= 1.5;
+})
+
+$("#fastRewindButton").click(function()
+{
+	ANIMATION_TIME *= 1.5;
+})
 
 /* DELETE PLANET HANDLER */
 $("#deletePlanetButton").click(function()

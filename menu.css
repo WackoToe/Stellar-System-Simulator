@@ -21,7 +21,7 @@
   background: linear-gradient(to bottom, #202020 0%, #505050 100%);
   border-bottom: 2px solid #0099FF;
   width: auto;
-  height: 64px;
+  height: 36px;
   box-sizing: border-box;
 }
 #cssmenu:after,
@@ -41,7 +41,7 @@
   color: #ffffff;
   display: block;
   font-family: Helvetica, Arial, Verdana, sans-serif;
-  padding: 19px 20px;
+  padding: 1px 1px;
   text-decoration: none;
 }
 
@@ -72,7 +72,7 @@
   color: #ffffff;
   font-size: 12px;
 }
-#cssmenu > ul > li:hover:after {
+/*#cssmenu > ul > li:hover:after {
   content: '';
   display: block;
   width: 0;
@@ -84,23 +84,13 @@
   border-right: 10px solid transparent;
   border-bottom: 10px solid #0fa1e0;
   margin-left: -10px;
-}
+}*/
 #cssmenu > ul > li:first-child > a {
   border-radius: 5px 0 0 0;
   -moz-border-radius: 5px 0 0 0;
   -webkit-border-radius: 5px 0 0 0;
 }
-#cssmenu.align-right > ul > li:first-child > a,
-#cssmenu.align-center > ul > li:first-child > a {
-  border-radius: 0;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-}
-#cssmenu.align-right > ul > li:last-child > a {
-  border-radius: 0 5px 0 0;
-  -moz-border-radius: 0 5px 0 0;
-  -webkit-border-radius: 0 5px 0 0;
-}
+
 #cssmenu > ul > li.active > a,
 #cssmenu > ul > li:hover > a {
   color: #0099FF;                               /* MODIFICA COLORE SCRITTE*/
@@ -172,15 +162,6 @@
 #cssmenu .has-sub .has-sub ul li a:hover {
   background: #0a6d98;
 }
-#cssmenu ul ul li.last > a,
-#cssmenu ul ul li:last-child > a,
-#cssmenu ul ul ul li.last > a,
-#cssmenu ul ul ul li:last-child > a,
-#cssmenu .has-sub ul li:last-child > a,
-#cssmenu .has-sub ul li.last > a {
-  border-bottom: 0;
-}
-
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -188,129 +169,100 @@
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* IE/Edge */
-  user-select: none;           /* non-prefixed version, currently
-                                  not supported by any browser */
+  user-select: none;           /* non-prefixed version, currently not supported by any browser */
 }
-
-
-
-
-
-
-
-
 
 
 /* FORM STYLE */
-
 /* Planet form style */
 .planetFormStyle{
-    font: 95%;
-    font-family: Helvetica, Arial, Verdana, sans-serif;
-    max-width: 400px;
-    margin: 10px auto;
-    padding: 16px;
-    background: transparent;
+	font: 95%;
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	max-width: 400px;
+	margin: 10px auto;
+	padding: 16px;
+	background: transparent;
 }
 .planetFormStyle h1{
-    background: #0fa1e0;
-    padding: 20px 0;
-    font-size: 140%;
-    font-weight: 300;
-    text-align: center;
-    color: #fff;
-    margin: -16px -16px 16px -16px;
+	background: #0fa1e0;
+	padding: 20px 0;
+	font-size: 140%;
+	font-weight: 300;
+	text-align: center;
+	color: #fff;
+	margin: -16px -16px 16px -16px;
 }
 .planetFormStyle input[type="text"],
-.planetFormStyle input[type="date"],
-.planetFormStyle input[type="datetime"],
-.planetFormStyle input[type="email"],
 .planetFormStyle input[type="number"],
-.planetFormStyle input[type="search"],
-.planetFormStyle input[type="time"],
-.planetFormStyle input[type="url"],
 .planetFormStyle textarea,
 .planetFormStyle select 
 {
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-    outline: none;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    width: 100%;
-    background: #fff;
-    margin-bottom: 4%;
-    border: 1px solid #ccc;
-    padding: 3%;
-    color: #555;
-    font: 95% Arial, Helvetica, sans-serif;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+	background: #fff;
+	margin-bottom: 4%;
+	border: 1px solid #ccc;
+	padding: 3%;
+	color: #555;
+	font: 95% Arial, Helvetica, sans-serif;
 }
 .planetFormStyle input[type="text"]:focus,
-.planetFormStyle input[type="date"]:focus,
-.planetFormStyle input[type="datetime"]:focus,
-.planetFormStyle input[type="email"]:focus,
 .planetFormStyle input[type="number"]:focus,
-.planetFormStyle input[type="search"]:focus,
-.planetFormStyle input[type="time"]:focus,
-.planetFormStyle input[type="url"]:focus,
 .planetFormStyle textarea:focus,
 .planetFormStyle select:focus
 {
-    box-shadow: 0 0 5px #6633FF;
-    padding: 3%;
-    border: 1px solid #6633FF;
+	box-shadow: 0 0 5px #6633FF;
+	padding: 3%;
+	border: 1px solid #6633FF;
 }
 
 .planetFormStyle input[type="submit"],
 .planetFormStyle input[type="button"]{
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    width: 100%;
-    padding: 3%;
-    background: #0fa1e0;
-    border-bottom: 2px solid #0a6d98;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;    
-    color: #fff;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+	padding: 3%;
+	background: #0fa1e0;
+	border-bottom: 2px solid #0a6d98;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;    
+	color: #fff;
 }
 .planetFormStyle input[type="submit"]:hover,
 .planetFormStyle input[type="button"]:hover{
-    background: #0a6d98;
+	background: #0a6d98;
 }
 
 
 /* Star form style */
-
 .starFormStyle{
-    font: 95%;
-    font-family: Helvetica, Arial, Verdana, sans-serif;
-    max-width: 400px;
-    margin: 10px auto;
-    padding: 16px;
-    background: transparent;
+	font: 95%;
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	max-width: 400px;
+	margin: 10px auto;
+	padding: 16px;
+	background: transparent;
 }
 .starFormStyle h1{
-    background: #FF9966;
-    padding: 20px 0;
-    font-size: 140%;
-    font-weight: 300;
-    text-align: center;
-    color: #fff;
-    margin: -16px -16px 16px -16px;
+	background: #FF9966;
+	padding: 20px 0;
+	font-size: 140%;
+	font-weight: 300;
+	text-align: center;
+	color: #fff;
+	margin: -16px -16px 16px -16px;
 }
 .starFormStyle input[type="text"],
-.starFormStyle input[type="date"],
-.starFormStyle input[type="datetime"],
-.starFormStyle input[type="email"],
 .starFormStyle input[type="number"],
-.starFormStyle input[type="search"],
-.starFormStyle input[type="time"],
-.starFormStyle input[type="url"],
 .starFormStyle textarea,
 .starFormStyle select 
 {
@@ -331,42 +283,33 @@
 	font: 95% Arial, Helvetica, sans-serif;
 }
 .starFormStyle input[type="text"]:focus,
-.starFormStyle input[type="date"]:focus,
-.starFormStyle input[type="datetime"]:focus,
-.starFormStyle input[type="email"]:focus,
 .starFormStyle input[type="number"]:focus,
-.starFormStyle input[type="search"]:focus,
-.starFormStyle input[type="time"]:focus,
-.starFormStyle input[type="url"]:focus,
 .starFormStyle textarea:focus,
 .starFormStyle select:focus
 {
-    box-shadow: 0 0 5px #CC0000;
-    padding: 3%;
-    border: 1px solid #FF6633;
+	box-shadow: 0 0 5px #CC0000;
+	padding: 3%;
+	border: 1px solid #FF6633;
 }
 
 .starFormStyle input[type="submit"],
 .starFormStyle input[type="button"]{
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    width: 100%;
-    padding: 3%;
-    background: #FF9966;
-    border-bottom: 2px solid #FF6633;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;    
-    color: #fff;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+	padding: 3%;
+	background: #FF9966;
+	border-bottom: 2px solid #FF6633;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;    
+	color: #fff;
 }
 .starFormStyle input[type="submit"]:hover,
 .starFormStyle input[type="button"]:hover{
-    background: #FF6633;
+	background: #FF6633;
 }
-
-
-
 
 
 /* MODAL STYLE */
@@ -397,24 +340,24 @@
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #F7F7F7;
-    margin: 5% auto;  /*5% from the top and centered*/
-    padding: 16px;
-    
-    width: 90%; /* Could be more or less, depending on screen size */
+	background-color: #F7F7F7;
+	margin: 5% auto;  /*5% from the top and centered*/
+	padding: 16px;
+	
+	width: 90%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: #F7F7F7;
-    text-decoration: none;
-    cursor: pointer;
+	color: #F7F7F7;
+	text-decoration: none;
+	cursor: pointer;
 }

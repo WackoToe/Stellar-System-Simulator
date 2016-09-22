@@ -8,9 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="S3styles.css" media="screen" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
-	
-
-
 	<style>p {text-align: justify; text-indent: 12px;}</style>
 </head>
 
@@ -18,7 +15,7 @@
 
 	<div id='cssmenu' class="noselect">
 	<ul>
-		<li class='has-sub'><a><span>Bodies</span></a>
+		<li class='has-sub'><a><span><font size="6">Bodies</font></span></a>
 		<ul>
 			<li class='has-sub'><a><span>Planets</span></a>
 			<ul>	
@@ -30,29 +27,25 @@
 				<li><a><button id="starButton" class='transparentButton'><span>New star</span></button></a></li>
 			</ul>
 			</li>
-			<li><a><span>Black Holes</span></a></li>
 		</ul>
 		</li>
 
-		<!--<li><a><span>Grav. Field</span></a></li>-->
-		<li><a id="gravFieldElement"><button id="gravFieldButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">blur_on</i></button></a></li>
-		<li><a id="panMenuElement"><button id="panButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">pan_tool</i></button></a></li>
-		<li><a id="zoomInMenuElement"><button id="zoomInButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">zoom_in</i></button></a></li>	
-		<li><a id="zoomOutMenuElement"><button id="zoomOutButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">zoom_out</i></button></a></li>
-		<li><a id="fastAddMenuElement"><button id="fastAddButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">add_circle</i></button></a></li>
-		<li><a id="deletePlanetMenuElement"><button id="deletePlanetButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">clear</i></button></a></li>
-		<li><a id="cleanAllMenuElement"><button id="cleanAllButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">delete</i></button></a></li>
-        <li><a id="pausePlayElement"><button id="pausePlayButton" class='transparentButton'><i class="material-icons" style="font-size:19px;">pause_circle_filled</i></button></a></li>
-		
-		
-		
-		<!--
-		<li class='has-sub'><a><i class="material-icons" style="font-size:22px;">delete</i></a>
-		<ul>
-			<li><a><button id="deleteBodyButton" class='transparentButton'><span>Delete body</span></button></a></li>
-			<li><a><button id="cleanAllButton" class='transparentButton'><span>Clean All</span></button></a></li>
-		</ul>
-		</li>-->
+		<li><a id="gravFieldElement"><button id="gravFieldButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">blur_on</i></button></a></li>
+		<li><a id="panMenuElement"><button id="panButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">pan_tool</i></button></a></li>
+		<li><a id="fastAddMenuElement"><button id="fastAddButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">add_circle</i></button></a></li>
+		<li><a id="fastRewindMenuElement"><button id="fastRewindButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">fast_rewind</i></button></a></li>
+		<li>
+			<a id="fastForwardMenuElement">
+				<span>
+				<button id="fastForwardButton" class='transparentButton'>
+					<i class="material-icons" style="font-size:26px;">fast_forward</i>
+				</button>
+				</span>
+			</a>
+		</li>
+		<li><a id="deletePlanetMenuElement"><button id="deletePlanetButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">clear</i></button></a></li>
+		<li><a id="cleanAllMenuElement"><button id="cleanAllButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">delete</i></button></a></li>
+		<li><a id="pausePlayElement"><button id="pausePlayButton" class='transparentButton'><i class="material-icons" style="font-size:26px;">pause_circle_filled</i></button></a></li>
 	</ul>
 	</div>
 
@@ -101,8 +94,8 @@
 					<input type="number" name="speedX" placeholder="x velocity" />
 					<input type="number" name="speedY" placeholder="y velocity" />
 					<select name="colorTheme">
-                        <option selected value = "orange"> Orange </option>
-                        <option value="darkblue">Dark blue</option>
+						<option selected value = "orange"> Orange </option>
+						<option value="darkblue">Dark blue</option>
 					</select>
 					<input type="submit" name="starSubmitButton" value="Create"/>
 			</div>
