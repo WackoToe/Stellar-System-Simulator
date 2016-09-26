@@ -7,6 +7,10 @@ S3 is based on html, css and javascript.
 S3 allows you to:
 * insert planet
 * delete planet
+* rapresent gravitational field
+* accelerate simulation
+* pause simulation
+* delete planets
 
 ### Screenshot
 ![screenshot1] (Images/presentationScreenshot1.png)
