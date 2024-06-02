@@ -13,5 +13,8 @@ S3 allows you to:
 * delete planets
 
 ### Screenshot
+![alt text](https://github.com/[WackoToe]/[Stellar-System-Simulator]Images/presentationScreenshot1.png)
+
+
 ![screenshot1] (Images/presentationScreenshot1.png)
 ![screenshot2] (Images/presentationScreenshot2.png)
